@@ -1,1 +1,44 @@
+name: Commit Message Lint
 
+on:
+  pull_request:
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Validate Commit Messages
+        run: |
+          commits=$(git log origin/${{ github.base_ref }}..HEAD --pretty=format:%H)
+
+          for commit in $commits; do
+            msg=$(git log -1 --pretty=format:%s $commit)
+
+            echo "Checking: $msg"
+
+            # Skip merge commits
+            if echo "$msg" | grep -qE "^Merge"; then
+              echo "Skipping merge commit"
+              continue
+            fi
+
+            # Check minimum length
+            if [ ${#msg} -lt 5 ]; then
+              echo "❌ Commit message too short: $msg"
+              echo "Message must be at least 5 characters"
+              exit 1
+            fi
+
+            # Check single line
+            if echo "$msg" | grep -qE '\n'; then
+              echo "❌ Commit message must be single line"
+              exit 1
+            fi
+          done
+
+          echo "✅ All commit messages are valid"
