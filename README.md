@@ -6,7 +6,7 @@ A small test repository for workflow experiments.
 
 - **Purpose:** Brief experiments and examples for workflows, CI, and automation.
 - **Contributing:** Fork, create a feature branch, and open a pull request against `main`.
-- **Branching:** Use descriptive branch names (e.g., `feature/`, `fix/`, `chore/`). Keep `main` protected.
+- **Branching:** Use descriptive branch names (e.g., `feature/`, `hotfix/`, `bug/`). Keep `main` protected.
 - **Commit Messages:** Write concise commits using the style `type(scope): short summary` (e.g., `feat(cli): add init command`).
 - **Code Style:** Run linters and formatters before committing. Follow language-specific style guides.
 - **Tests:** Add tests for new features and run the test suite locally before opening a PR.
